@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.dogoodthings.ectr</groupId>
+    <artifactId>OSGi-AiMcpTools</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+
+    <name>OSGi-AiMcpTools</name>
+    <description>MCP Tools for ECTR AI Companion</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>17</maven.compiler.release>
+        <ectr.install.dir>E:\ECTR-TEST-INSTALLATIONS\ECTR-S4-13-clean</ectr.install.dir>
+        <ectr.addon.name>mcp-tools</ectr.addon.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>8.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <version>1.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dscsag</groupId>
+            <artifactId>plm-api</artifactId>
+            <version>5.2.15.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+
+            <!-- OSGi bundling -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>6.0.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <unpackBundle>true</unpackBundle>
+                    <niceManifest>true</niceManifest>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+
+                    <instructions>
+                        <_noee>true</_noee>
+                        <_dsannotations-options>norequirements,nocapabilities</_dsannotations-options>
+
+                        <_consumer-policy>$${range;[==,+]}</_consumer-policy>
+                        <Bundle-SymbolicName>
+                            ${project.groupId}.${project.artifactId};singleton:=true
+                        </Bundle-SymbolicName>
+                        <Import-Package>
+                            <!-- the following entries are required even though they 
+                                cause maven warnings during the build -->
+                            com.dscsag.plm.spi.interfaces.*,
+                            com.dscsag.plm.spi.rfc.builder</Import-Package>
+                        <Export-Package />
+                        <Include-Resource><!-- include resources automatically -->
+                        </Include-Resource>
+
+                        <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+                        <Embed-Directory>lib</Embed-Directory>
+                        <Embed-Transitive>true</Embed-Transitive>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>
