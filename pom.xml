@@ -44,6 +44,7 @@
             <groupId>com.dscsag</groupId>
             <artifactId>plm-api</artifactId>
             <version>5.2.15.0</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
