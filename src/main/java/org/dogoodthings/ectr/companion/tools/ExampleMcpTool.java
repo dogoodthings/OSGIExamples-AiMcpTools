@@ -23,12 +23,14 @@ import org.osgi.service.component.annotations.Reference;
 import com.dscsag.plm.spi.interfaces.ECTRService;
 import com.dscsag.plm.spi.interfaces.ai.tools.Tool;
 import com.dscsag.plm.spi.interfaces.ai.tools.ToolParameter;
+import com.dscsag.plm.spi.interfaces.ai.tools.ToolsComponent;
 
 /**
  * @author wt
  * @since 1.0.0
  */
-@Component (service = ExampleMcpTool.class) public class ExampleMcpTool
+@Component (service = ToolsComponent.class)
+public class ExampleMcpTool implements ToolsComponent
 {
   @Reference ECTRService ectr;
 

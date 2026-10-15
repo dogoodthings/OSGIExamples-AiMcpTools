@@ -9,14 +9,15 @@ import org.osgi.service.component.annotations.Reference;
 import com.dscsag.plm.spi.interfaces.ECTRService;
 import com.dscsag.plm.spi.interfaces.ai.tools.Tool;
 import com.dscsag.plm.spi.interfaces.ai.tools.ToolParameter;
+import com.dscsag.plm.spi.interfaces.ai.tools.ToolsComponent;
 import com.dscsag.plm.spi.interfaces.rfc.RfcResult;
 import com.dscsag.plm.spi.interfaces.rfc.RfcStructure;
 import com.dscsag.plm.spi.interfaces.services.NumberConverterFactory;
 import com.dscsag.plm.spi.interfaces.services.NumberConverterTypes;
 import com.dscsag.plm.spi.rfc.builder.RfcCallBuilder;
 
-@Component (service = MaterialNetWeightMcpTool.class)
-public class MaterialNetWeightMcpTool
+@Component (service = ToolsComponent.class)
+public class MaterialNetWeightMcpTool implements ToolsComponent
 {
   @Reference ECTRService ectr;
   @Reference NumberConverterFactory numberConverterFactory;
